@@ -20,22 +20,28 @@ const Home = () => {
   }, []);
 
   const iconMaker = (amount, previous) => {
-    if (amount < previous) {
-      return <img className="home-icon" src={require("./../assets/icons/down.png")} alt="down" />
-    } else if (amount > previous) {
-      return <img className="home-icon" src={require("./../assets/icons/up.png")} alt="up" />
-    } else {
-      return <img className="home-icon" src={require("./../assets/icons/equal.png")} alt="equal" />
-    }
+    if (amount < previous) return "▲"
+    else if (amount > previous) return "▼"
+    else return "="
+  }
+  if (currency) {
+    console.log(currency)
   }
   return (
     <>
       <div className="wrapper">
         <h1>Курсы валют ЦБ РФ на {currentDate}</h1>
         {currency &&
-          <p>Доллар США $ — {currency.Valute.USD.Value} руб. {iconMaker(currency.Valute.USD.Value, currency.Valute.USD.Previous)}</p>}
-        {currency &&
-          <p>Евро € — {currency.Valute.EUR.Value} руб. {iconMaker(currency.Valute.EUR.Value, currency.Valute.USD.Previous)}</p>}
+          <div><p>Доллар США $ — {currency.Valute.USD.Value} руб.
+            {iconMaker(currency.Valute.USD.Value, currency.Valute.USD.Previous)}</p>
+            <p>Евро € — {currency.Valute.EUR.Value} руб.
+              {iconMaker(currency.Valute.EUR.Value, currency.Valute.USD.Previous)}</p>
+            <p>Последнее обновление базы данных: {currency.Timestamp.slice(0, 4)}/
+              {currency.Timestamp.slice(5, 7)}/
+              {currency.Timestamp.slice(8, 10)} , {currency.Timestamp.slice(11, 19)}
+            </p>
+          </div>
+        }
         <table className="table">
           <thead>
             <tr>
