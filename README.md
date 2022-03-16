@@ -1,1 +1,1 @@
-# currency-test
+# oliytalim-frontend
