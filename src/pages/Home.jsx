@@ -2,7 +2,6 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { API_PATH } from "../actions/service";
 import "./css/home.css";
-
 const Home = () => {
   const [currency, setCurrency] = useState(null);
   // getting correct date time
@@ -19,15 +18,24 @@ const Home = () => {
       setCurrency(res.data);
     })
   }, []);
-  if (currency) {
-    console.log(currency);
+
+  const iconMaker = (amount, previous) => {
+    if (amount < previous) {
+      return <img className="home-icon" src={require("./../assets/icons/down.png")} alt="down" />
+    } else if (amount > previous) {
+      return <img className="home-icon" src={require("./../assets/icons/up.png")} alt="up" />
+    } else {
+      return <img className="home-icon" src={require("./../assets/icons/equal.png")} alt="equal" />
+    }
   }
   return (
     <>
       <div className="wrapper">
         <h1>Курсы валют ЦБ РФ на {currentDate}</h1>
-        {currency && <p>Доллар США $ — {currency.Valute.USD.Value} руб.</p>}
-        {currency && <p>Евро € — {currency.Valute.USD.Value} руб.</p>}
+        {currency &&
+          <p>Доллар США $ — {currency.Valute.USD.Value} руб. {iconMaker(currency.Valute.USD.Value, currency.Valute.USD.Previous)}</p>}
+        {currency &&
+          <p>Евро € — {currency.Valute.EUR.Value} руб. {iconMaker(currency.Valute.EUR.Value, currency.Valute.USD.Previous)}</p>}
         <table className="table">
           <thead>
             <tr>
