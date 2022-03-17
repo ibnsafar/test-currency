@@ -5,3 +5,9 @@
 .home-icon{
     width: 12px;
 }
+/* .home-tr:hover{ */
+    /* cursor: grab;/ */
+/* } */
+.home-link{
+    text-decoration: none;
+}

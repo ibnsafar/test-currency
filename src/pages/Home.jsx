@@ -1,12 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { API_PATH } from "../actions/service";
 import "./css/home.css";
-const Home = () => {
+
+const Home = (context) => {
   const [currency, setCurrency] = useState(null);
   // getting correct date time
   let month = String(new Date().getMonth());
-  let exarr = [];
   if (month.length === 1) {
     month = "0" + month;
   }
@@ -23,9 +24,6 @@ const Home = () => {
     if (amount < previous) return "▲"
     else if (amount > previous) return "▼"
     else return "="
-  }
-  if (currency) {
-    console.log(currency)
   }
   return (
     <>
@@ -54,9 +52,9 @@ const Home = () => {
             </tr>
           </thead>
           <tbody>
-            {currency && Object.entries(currency.Valute).map(item => {
-              return <tr key={item[1].id}>
-                <td>{item[1].NumCode}</td>
+            {currency && Object.entries(currency.Valute).map((item, index) => {
+              return <tr key={index} className="home-tr">
+                <td><Link className="home-link" to={"/currency/" + item[1].NumCode}>{item[1].NumCode}</Link></td>
                 <td>{item[0]}</td>
                 <td>{item[1].Nominal}</td>
                 <td>{item[1].Name}</td>
